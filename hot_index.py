@@ -11,6 +11,14 @@ import ssl
 import urllib.request
 
 
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+
+
 # In[40]:
 
 
@@ -43,8 +51,6 @@ formatted_month = f"{month:02d}"
 
 
 #データをダウンロード
-
-ssl._create_default_https_context = ssl._create_unverified_context
 
 url = f'https://www.wbgt.env.go.jp/est15WG/dl/wbgt_all_{year}{formatted_month}.csv'
 df_tempdata = pd.read_csv(url)
