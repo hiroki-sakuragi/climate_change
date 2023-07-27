@@ -7,6 +7,8 @@
 import pandas as pd
 import datetime
 import requests
+import ssl
+import urllib.request
 
 
 # In[40]:
@@ -41,6 +43,8 @@ formatted_month = f"{month:02d}"
 
 
 #データをダウンロード
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 url = f'https://www.wbgt.env.go.jp/est15WG/dl/wbgt_all_{year}{formatted_month}.csv'
 df_tempdata = pd.read_csv(url)
